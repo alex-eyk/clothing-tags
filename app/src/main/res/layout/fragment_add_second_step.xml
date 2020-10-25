@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagSecondStepViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagSharedViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.chip.ChipGroup
+            style="@style/AppChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@={sharedViewModel.whiteningType}">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/whitening_any"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/whitening_any_type" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/whitening_banned"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/whitening_banned_type" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/whitening_without_cl"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/whitening_without_cl_type" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/whitening_caption" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.ChipGroup
+                    style="@style/AppChipGroup"
+                    android:layout_width="590dp"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@={sharedViewModel.ironingType}"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_200"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_200" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_150"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_150" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_110"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_110" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_any"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_any_short" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_not_stream_off"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_not_stream_off" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/ironing_banned"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ironing_no" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </FrameLayout>
+
+        </HorizontalScrollView>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ironing_caption"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView4" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWithTopStartDrawable4">
+
+            <com.google.android.material.chip.ChipGroup
+                style="@style/AppChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@={sharedViewModel.dryingType}">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/drying_unfolded"
+                    style="@style/AppChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drying_unfolded" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/drying_stretch"
+                    style="@style/AppChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drying_stretch" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            android:id="@+id/textViewWithTopStartDrawable5"
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drying_caption"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView7" />
+
+    </LinearLayout>
+</layout>

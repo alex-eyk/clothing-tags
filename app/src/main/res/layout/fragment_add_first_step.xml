@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagFirstStepViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagSharedViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_start_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/default_end_margin"
+            android:hint="@string/name"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={sharedViewModel.title}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_small_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_start_margin"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/default_end_margin"
+            android:hint="@string/small_description"
+            app:helperText="@string/not_necessary"
+            app:helperTextEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={sharedViewModel.description}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/photo_view"
+            android:layout_width="100dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/default_start_margin"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/attached_image_description"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_small_description" />
+
+        <TextView
+            android:id="@+id/add_photo_title"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/add_photo"
+            app:layout_constraintStart_toEndOf="@+id/photo_view"
+            app:layout_constraintTop_toTopOf="@+id/photo_view" />
+
+        <TextView
+            android:id="@+id/add_photo_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/not_necessary"
+            app:layout_constraintStart_toStartOf="@+id/add_photo_title"
+            app:layout_constraintTop_toBottomOf="@+id/add_photo_title" />
+
+        <ImageButton
+            android:id="@+id/add_photo_button"
+            style="@style/AppImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:onClick="@{() -> viewModel.selectImage()}"
+            android:src="@drawable/ic_baseline_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/crop_photo_button"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/crop_photo_button"
+            style="@style/AppImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_baseline_crop"
+            android:onClick="@{() -> viewModel.cropImage()}"
+            app:layout_constraintBottom_toBottomOf="@+id/photo_view"
+            app:layout_constraintEnd_toStartOf="@+id/add_photo_button"
+            app:layout_constraintTop_toTopOf="@+id/photo_view"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="@dimen/default_end_margin"
+            android:background="@color/colorDividerBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/add_photo_description"
+            app:layout_constraintTop_toBottomOf="@+id/photo_view" />
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            android:id="@+id/textView"
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/not_necessary_to_input_all"
+            app:drawableStartCompat="@drawable/ic_baseline_warning"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.ChipGroup
+                    style="@style/AppChipGroup"
+                    android:layout_width="520dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:checkedButton="@={sharedViewModel.washingType}"
+                    app:chipSpacingVertical="0dp"
+                    app:singleLine="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/washing_normal"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wash_normal_type" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/washing_moderate"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wash_moderate_type" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/washing_delicate"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wash_delicate_type" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/washing_hand"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wash_hand_type" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/washing_banned"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wash_banned_type" />
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </FrameLayout>
+
+        </HorizontalScrollView>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            android:id="@+id/textViewWithTopStartDrawable"
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/washing_caption"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_"
+            style="@style/AppChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:checkedButton="@={sharedViewModel.washingMaximumTemp}"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWithTopStartDrawable"
+            tools:layout_editor_absoluteX="0dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/washing_30"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_30" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/washing_45"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_45" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/washing_60"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_60" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/washing_75"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_75" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/washing_90"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_90" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature_caption"
+            app:layout_constraintTop_toBottomOf="@+id/chip_group_" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

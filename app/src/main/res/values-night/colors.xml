@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorBackground">#292929</color>
+    <color name="colorAccent">#BB86FC</color>
+    <color name="colorDividerBackground">#1FFFFFFF</color>
+    <color name="colorWarningIcons">#FFFFFF</color>
+
+    <color name="colorChipBackground">@android:color/black</color>
+    <color name="colorChipSelectedBackground">#29BB86FC</color>
+    <color name="colorChipStroke">#3DFFFFFF</color>
+    <color name="colorChipSelectedStroke">#BB86FC</color>
+
+</resources>

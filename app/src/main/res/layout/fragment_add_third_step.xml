@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagThirdStepViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.happs.ximand.clothingtags.viewmodel.AddTagSharedViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWithTopStartDrawable2">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.ChipGroup
+                    style="@style/AppChipGroup"
+                    android:layout_width="670dp"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@={sharedViewModel.dryCleaningType}"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_any"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_any"
+                        app:chipIcon="@drawable/ic_a"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_p"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_p_short"
+                        app:chipIcon="@drawable/ic_p"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_p_"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_p__short"
+                        app:chipIcon="@drawable/ic_p_"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_f"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_f_short"
+                        app:chipIcon="@drawable/ic_f"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_f_"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_f__short"
+                        app:chipIcon="@drawable/ic_f_"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_min_t"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_min_t"
+                        app:chipIcon="@drawable/ic_c_1"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_clean_without_stream"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_clean_without_stream"
+                        app:chipIcon="@drawable/ic_c_2"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_low_humidity"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_low_humidity"
+                        app:chipIcon="@drawable/ic_c_3"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_short_drying"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_short_drying"
+                        app:chipIcon="@drawable/ic_c_4"
+                        app:chipIconEnabled="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/dry_cleaning_banned"
+                        style="@style/AppChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dry_cleaning_banned_short"
+                        app:chipIcon="@drawable/ic_no"
+                        app:chipIconEnabled="true" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </FrameLayout>
+
+        </HorizontalScrollView>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dry_cleaning_caption" />
+
+        <com.google.android.material.chip.ChipGroup
+            style="@style/AppChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:checkedButton="@={sharedViewModel.spinningType}">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/spinning_normal"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spinning_normal" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/spinning_low"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spinning_low_short" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/spinning_banned"
+                style="@style/AppChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spinning_banned_short" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/spinning_caption" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/twist_banned"
+            style="@style/AppChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:checked="@{sharedViewModel.canNotBeTwisted}"
+            android:text="@string/twist_banned"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWithTopStartDrawable5" />
+
+        <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
+            style="@style/AppChipGroupTextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/twist_caption"
+            app:layout_constraintTop_toBottomOf="@+id/twist_banned" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="expanded"
+            type="androidx.databinding.ObservableBoolean" />
+
+        <variable
+            name="clothingTag"
+            type="com.happs.ximand.clothingtags.model.object.ClothingTag" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/clothing_photo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_outline"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setClipToOutline="@{true}" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/clothing_photo"
+            app:layout_constraintStart_toEndOf="@+id/clothing_photo"
+            app:layout_constraintTop_toTopOf="@+id/clothing_photo">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{clothingTag.title}"
+                app:layout_constraintStart_toEndOf="@+id/clothing_photo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Название" />
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="11"
+                android:text="@{clothingTag.description}"
+                android:textSize="14sp"
+                android:visibility="@{clothingTag.description == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="Небольшое описание" />
+
+        </LinearLayout>
+
+        <ViewStub
+            android:id="@+id/detailsViewStub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout="@layout/item_clothing_tag_details"
+            app:layout_constraintTop_toBottomOf="@+id/clothing_photo">
+
+        </ViewStub>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorDividerBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/clothing_photo" />
+
+        <ImageButton
+            android:id="@+id/button_more"
+            style="@style/AppImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_unfold_more"
+            app:layout_constraintBottom_toBottomOf="@+id/clothing_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/clothing_photo" />
+
+        <ImageButton
+            android:id="@+id/button_remove"
+            style="@style/AppImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_baseline_delete_sweep"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/button_more"
+            app:layout_constraintTop_toTopOf="@+id/button_more"
+            app:visibility="@{expanded}" />
+
+        <ImageButton
+            android:id="@+id/button_edit"
+            style="@style/AppImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_baseline_edit"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/button_remove"
+            app:layout_constraintTop_toTopOf="@+id/button_remove"
+            app:visibility="@{expanded}" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

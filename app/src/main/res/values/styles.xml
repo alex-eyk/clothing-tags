@@ -1,0 +1,47 @@
+<resources>
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBackground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseAppTheme" />
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <style name="AppChipGroup" parent="Widget.MaterialComponents.ChipGroup" >
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="chipSpacing">12dp</item>
+        <item name="singleSelection">true</item>
+        <item name="chipSpacingVertical">0dp</item>
+    </style>
+
+    <style name="AppChip" parent="Widget.MaterialComponents.Chip.Choice" >
+        <item name="chipBackgroundColor">@color/bg_chip_color</item>
+        <item name="chipStrokeColor">@color/bg_chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="singleSelection">true</item>
+    </style>
+
+    <style name="AppItemChip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/bg_chip_color</item>
+        <item name="chipStrokeColor">@color/bg_chip_stroke_color</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <style name="AppChipGroupTextCaption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="drawableStartCompat">@drawable/ic_baseline_help</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
+</resources>

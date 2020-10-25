@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="expanded"
+            type="androidx.databinding.ObservableBoolean" />
+
+        <variable
+            name="clothingTag"
+            type="com.happs.ximand.clothingtags.model.object.ClothingTag" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.WashingDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.MaxTemperatureDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.WhiteningDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.IroningDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.SpinningDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.DryCleaningDescriptionHelper" />
+
+        <import type="com.happs.ximand.clothingtags.viewmodel.util.DryingDescriptionHelper" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:visibility="@{expanded}">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipContent="@{WashingDescriptionHelper.INSTANCE.getWashingDescriptionResById(clothingTag.washingType)}"
+                    tools:text="Стирка в нормальном режиме" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipContent="@{MaxTemperatureDescriptionHelper.INSTANCE.getMaxTemperatureResById(clothingTag.washingMaximumTemp)}"
+                    tools:text="30℃" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipContent="@{WhiteningDescriptionHelper.INSTANCE.getWhiteningDescriptionResById(clothingTag.whiteningType)}"
+                    tools:text="Любое отбеливание кроме хлора" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipContent="@{DryCleaningDescriptionHelper.INSTANCE.getDryCleaningDescriptionResById(clothingTag.dryCleaningType)}" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{clothingTag.canBeTwisted ? null : @string/twist_banned}"
+                    android:visibility="@{clothingTag.canBeTwisted ? View.GONE : View.VISIBLE}" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    chipContent="@{IroningDescriptionHelper.INSTANCE.getIroningDescriptionResById(clothingTag.ironingType)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Глажение при 200℃ (•••)" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    chipContent="@{DryingDescriptionHelper.INSTANCE.INSTANCE.getIroningDescriptionResById(clothingTag.dryingType)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Сушка в разложенном виде (^)" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/AppItemChip"
+                    chipContent="@{SpinningDescriptionHelper.INSTANCE.getSpinningDescriptionResById(clothingTag.spinningType)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Отжим при нормальной температуре (••)" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+</layout>
