@@ -9,6 +9,7 @@ class ClothingTagToContentValuesMapper : Mapper<ClothingTag, ContentValues> {
         val contentValues = ContentValues()
         contentValues.put(ClothingTagSQLiteHelper.FIELD_TITLE, from.title)
         contentValues.put(ClothingTagSQLiteHelper.FIELD_DESCRIPTION, from.description)
+        contentValues.put(ClothingTagSQLiteHelper.FIELD_IMAGE_ID, from.imageId)
         contentValues.put(ClothingTagSQLiteHelper.FIELD_WASHING, from.washingType)
         contentValues.put(ClothingTagSQLiteHelper.FIELD_WASHING_MAX_TEMP, from.washingMaximumTemp)
         contentValues.put(ClothingTagSQLiteHelper.FIELD_WHITENING, from.whiteningType)

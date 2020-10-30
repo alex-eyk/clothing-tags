@@ -23,13 +23,15 @@
 
         <ImageView
             android:id="@+id/clothing_photo"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/round_outline"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/image_placeholder"
+            app:bitmapByImageId="@{clothingTag.imageId}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:setClipToOutline="@{true}" />
@@ -73,23 +75,12 @@
             android:id="@+id/detailsViewStub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout="@layout/item_clothing_tag_details"
             app:layout_constraintTop_toBottomOf="@+id/clothing_photo">
 
         </ViewStub>
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/colorDividerBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/clothing_photo" />
 
         <ImageButton
             android:id="@+id/button_more"
@@ -97,6 +88,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_baseline_unfold_more"
             app:layout_constraintBottom_toBottomOf="@+id/clothing_photo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +100,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_baseline_delete_sweep"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/button_more"
@@ -120,6 +113,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_baseline_edit"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/button_remove"

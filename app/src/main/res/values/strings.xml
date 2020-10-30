@@ -60,10 +60,19 @@
     <string name="ironing_caption">Посмотрите на утюг. Все зависит от количества нарисованных в нем точек. Если точек нет, ограничений по температуре нет.</string>
     <string name="whitening_caption">Разрешено любое отбеливание, если на бирке нарисован треугольник, внутри которого написано «Cl», либо ничего. Если треугольник заштрихован, нельзя отбеливать хлором, если зачеркнут - запрещено</string>
     <string name="washing_caption">Если на бирке под тазом с информацией о стирке проведена дополнительная линия, стирка должна производиться в умеренном режиме, две - в особо деликатном</string>
-    <string name="temperature_caption">Температура также иногда может обозначаться количеством точек (1 - 30℃, 2 - 40℃ и т.д.)</string>
+    <string name="temperature_caption">Температура также иногда может обозначаться количеством точек (1 – 30℃, 2 – 40℃ и т.д.)</string>
     <string name="attached_image_description">Прикрепленная картинка</string>
     <string name="twist_caption">Отметьте, если на бирке изображено «Выкручивать нельзя»</string>
     <string name="remove">Удалить</string>
     <string name="edit">Редактировать</string>
     <string name="show_details">Показать детали</string>
+    <string name="image_was_not_selected">Изображение не выбрано</string>
+    <string name="image_was_selected">Изображение успешно выбрано</string>
+    <string name="image_was_deleted">Прикрепленное изображение удалено</string>
+    <string name="title_is_empty">Название обязательно должно быть заполнено</string>
+    <string name="default_negative_button">Отменить</string>
+    <string name="removing_tag">Удаление данных</string>
+    <string name="removing_tag_confirmation">Вы действительно хотите удалить данные о стирке?</string>
+    <string name="invalid_num_of_not_empty_fields">По крайней мере 1 пункт должен быть заполнен</string>
+    <string name="error_save_image">Не удалось сохранить прикрепленное изображение</string>
 </resources>

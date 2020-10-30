@@ -7,11 +7,12 @@ import com.happs.ximand.clothingtags.R
 import com.happs.ximand.clothingtags.model.ClothingTagRepository
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
 import com.happs.ximand.clothingtags.view.AddTagFirstStepFragment
+import com.happs.ximand.clothingtags.viewmodel.`object`.RemoveConfirmationDialog
 
 class AllClothingTagsViewModel(savedState: SavedStateHandle) : BaseViewModel(savedState) {
 
-    var clothingTagsLiveData = MutableLiveData<List<ClothingTag>>()
-        private set
+    val clothingTagsLiveData = MutableLiveData<List<ClothingTag>>()
+    val removeConfirmation = MutableLiveData<Event<RemoveConfirmationDialog>>()
 
     init {
         updateTagsList()
@@ -22,7 +23,12 @@ class AllClothingTagsViewModel(savedState: SavedStateHandle) : BaseViewModel(sav
     }
 
     fun removeTag(tag: ClothingTag) {
+        removeConfirmation.value = Event(RemoveConfirmationDialog(tag))
+    }
 
+    fun notifyRemovingConfirmed() {
+        ClothingTagRepository.instance?.remove(removeConfirmation.value?.peekContent()?.tag!!)
+        updateTagsList()
     }
 
     fun editTag(tag: ClothingTag) {
@@ -32,7 +38,7 @@ class AllClothingTagsViewModel(savedState: SavedStateHandle) : BaseViewModel(sav
     override fun notifyOptionsMenuItemClicked(id: Int): Boolean {
         if (id == R.id.menu_add) {
             FragmentNavigation.getInstance()
-                .navigateToNewFragment(AddTagFirstStepFragment.newInstance());
+                .navigateToNewFragment(AddTagFirstStepFragment.newInstance())
             return true
         }
         return false

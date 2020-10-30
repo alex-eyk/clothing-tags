@@ -11,7 +11,7 @@ class ClothingTagSQLiteHelper(context: Context, version: Int) :
         const val DATABASE_NAME = "CLOTHING_TAGS"
         const val FIELD_ID = "ID"
         const val FIELD_TITLE = "TITLE"
-        const val FIELD_IMAGE_PATH = "IMAGE_PATH"
+        const val FIELD_IMAGE_ID = "IMAGE_PATH"
         const val FIELD_DESCRIPTION = "DESC"
         const val FIELD_WASHING = "WASHING"
         const val FIELD_WASHING_MAX_TEMP = "WASH_MAX_TEMP"
@@ -28,7 +28,7 @@ class ClothingTagSQLiteHelper(context: Context, version: Int) :
             "CREATE TABLE IF NOT EXISTS $DATABASE_NAME(" +
                     "$FIELD_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "$FIELD_TITLE TEXT NOT NULL, " +
-                    "$FIELD_IMAGE_PATH TEXT, " +
+                    "$FIELD_IMAGE_ID INTEGER, " +
                     "$FIELD_DESCRIPTION TEXT, " +
                     "$FIELD_WASHING INTEGER DEFAULT 0, " +
                     "$FIELD_WASHING_MAX_TEMP INTEGER DEFAULT 0, " +

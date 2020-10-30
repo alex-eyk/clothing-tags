@@ -10,7 +10,7 @@ import com.happs.ximand.clothingtags.databinding.ItemClothingTagBinding
 import com.happs.ximand.clothingtags.databinding.ItemClothingTagDetailsBinding
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
 
-class AllClothingRecyclerViewAdapter(private val clothingTags: List<ClothingTag>) :
+class AllClothingRecyclerViewAdapter(private var clothingTags: List<ClothingTag>) :
     RecyclerView.Adapter<AllClothingRecyclerViewAdapter.AllClothingViewHolder>() {
 
     var removeClickListener: ((tag: ClothingTag) -> Unit)? = null
@@ -32,6 +32,47 @@ class AllClothingRecyclerViewAdapter(private val clothingTags: List<ClothingTag>
 
     override fun onBindViewHolder(holder: AllClothingViewHolder, position: Int) {
         holder.bind(clothingTags[position])
+    }
+
+    fun notifyListUpdated(clothingTags: List<ClothingTag>) {
+        val oldSize = this.clothingTags.size
+        val newSize = clothingTags.size
+        when {
+            newSize > oldSize ->
+                notifyItemAdded(clothingTags)
+            newSize < oldSize ->
+                notifyItemRemoved(clothingTags)
+            else ->
+                notifyItemUpdated(clothingTags)
+        }
+    }
+
+    private fun notifyItemAdded(newList: List<ClothingTag>) {
+        this.clothingTags = newList
+        notifyItemInserted(newList.size - 1)
+    }
+
+    private fun notifyItemRemoved(newList: List<ClothingTag>) {
+        val dif = findDifference(newList, this.clothingTags)
+        this.clothingTags = newList
+        notifyItemRemoved(dif)
+    }
+
+    private fun notifyItemUpdated(newList: List<ClothingTag>) {
+        val dif = findDifference(newList, this.clothingTags)
+        this.clothingTags = newList
+        notifyItemChanged(dif)
+    }
+
+    private fun findDifference(newList: List<ClothingTag>, oldList: List<ClothingTag>): Int {
+        if (newList.isEmpty() || oldList.isEmpty())
+            return 0
+        for (i in newList.indices) {
+            if (newList[i] != oldList[i]) {
+                return i
+            }
+        }
+        return oldList.size
     }
 
     inner class AllClothingViewHolder(private val binding: ItemClothingTagBinding) :

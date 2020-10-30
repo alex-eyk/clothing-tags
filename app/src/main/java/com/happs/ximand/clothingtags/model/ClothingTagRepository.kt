@@ -8,7 +8,8 @@ import com.happs.ximand.clothingtags.model.`object`.ClothingTag
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ClothingTagRepository(app: Application, version: Int) : Repository<ClothingTag> {
+class ClothingTagRepository private constructor(app: Application, version: Int) :
+    Repository<ClothingTag> {
 
     companion object {
         var instance: ClothingTagRepository? = null
@@ -78,8 +79,10 @@ class ClothingTagRepository(app: Application, version: Int) : Repository<Clothin
         val database = dbHelper.writableDatabase
         try {
             database.beginTransaction()
-            database.execSQL("DELETE FROM ${ClothingTagSQLiteHelper.DATABASE_NAME} " +
-                    "WHERE ${ClothingTagSQLiteHelper.FIELD_ID} = ${item.id}")
+            database.execSQL(
+                "DELETE FROM ${ClothingTagSQLiteHelper.DATABASE_NAME} " +
+                        "WHERE ${ClothingTagSQLiteHelper.FIELD_ID} = ${item.id}"
+            )
             database.setTransactionSuccessful()
         } finally {
             database.endTransaction()

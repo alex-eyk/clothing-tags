@@ -1,10 +1,12 @@
 package com.happs.ximand.clothingtags.view
 
+import android.app.Activity
 import android.content.Intent
 import androidx.lifecycle.Observer
 import com.happs.ximand.clothingtags.R
 import com.happs.ximand.clothingtags.databinding.FragmentAddFirstStepBinding
 import com.happs.ximand.clothingtags.viewmodel.AddTagFirstStepViewModel
+import com.happs.ximand.clothingtags.viewmodel.AddTagSharedViewModel
 
 class AddTagFirstStepFragment :
     BaseAddTagFragment<AddTagFirstStepViewModel, FragmentAddFirstStepBinding>(
@@ -20,22 +22,23 @@ class AddTagFirstStepFragment :
         }
     }
 
-    override fun onPreViewModelAttached(viewModel: AddTagFirstStepViewModel) {
-        viewModel.selectImageEvent.observe(viewLifecycleOwner, Observer {
+    override fun onShareViewModelAttached(sharedViewModel: AddTagSharedViewModel) {
+        super.onShareViewModelAttached(sharedViewModel)
+        sharedViewModel.selectImageEvent.observe(viewLifecycleOwner, Observer {
             val intent = Intent()
                 .setType("image/*")
                 .setAction(Intent.ACTION_GET_CONTENT)
             startActivityForResult(intent, IMAGE_GET_REQUEST_CODE)
         })
-        viewModel.cropImageEvent.observe(viewLifecycleOwner, Observer {
-            val intent = Intent()
-
-        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == IMAGE_GET_REQUEST_CODE) {
-
+            if (resultCode == Activity.RESULT_OK) {
+                sharedViewModel?.notifyImageSelected(data?.data, true)
+            } else {
+                sharedViewModel?.notifyImageSelected(null, false)
+            }
         }
     }
 }

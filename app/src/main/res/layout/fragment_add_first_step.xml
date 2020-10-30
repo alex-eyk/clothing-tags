@@ -59,14 +59,18 @@
 
         <ImageView
             android:id="@+id/photo_view"
-            android:layout_width="100dp"
+            android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="@dimen/default_start_margin"
             android:layout_marginTop="24dp"
+            android:background="@drawable/round_outline"
             android:contentDescription="@string/attached_image_description"
+            android:scaleType="centerCrop"
             android:src="@drawable/image_placeholder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_small_description" />
+            app:bitmap="@{sharedViewModel.imageLiveData}"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_small_description"
+            app:setClipToOutline="@{true}" />
 
         <TextView
             android:id="@+id/add_photo_title"
@@ -94,20 +98,20 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
-            android:onClick="@{() -> viewModel.selectImage()}"
+            android:onClick="@{() -> sharedViewModel.selectImage()}"
             android:src="@drawable/ic_baseline_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/crop_photo_button"
+            app:layout_constraintTop_toTopOf="@+id/cancel_attach_button"
             tools:ignore="ContentDescription" />
 
         <ImageButton
-            android:id="@+id/crop_photo_button"
+            android:id="@+id/cancel_attach_button"
             style="@style/AppImageButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_baseline_crop"
-            android:onClick="@{() -> viewModel.cropImage()}"
+            android:onClick="@{() -> sharedViewModel.cancelAttaching()}"
+            android:src="@drawable/ic_baseline_cancel"
             app:layout_constraintBottom_toBottomOf="@+id/photo_view"
             app:layout_constraintEnd_toStartOf="@+id/add_photo_button"
             app:layout_constraintTop_toTopOf="@+id/photo_view"
@@ -138,8 +142,8 @@
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
             android:overScrollMode="never"
+            android:scrollbars="none"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <FrameLayout

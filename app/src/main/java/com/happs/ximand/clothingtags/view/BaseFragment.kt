@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.happs.ximand.clothingtags.BR
 import com.happs.ximand.clothingtags.viewmodel.BaseViewModel
+import com.happs.ximand.clothingtags.viewmodel.Event
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
@@ -51,11 +54,29 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         val binding = DataBindingUtil.inflate<B>(inflater, layoutResId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         onViewDataBindingCreated(binding)
+        observeMakeSnackbarEvent()
 
         onPreViewModelAttached(viewModel!!)
         binding.setVariable(BR.viewModel, viewModel)
         binding.executePendingBindings()
         return binding.root
+    }
+
+    private fun observeMakeSnackbarEvent() {
+        viewModel?.makeSnackbarEvent?.observe(viewLifecycleOwner, Observer { event ->
+            makeSnackbarOnEvent(event)
+        })
+    }
+
+    protected fun makeSnackbarOnEvent(event: Event<Int>) {
+        event.getContentIfNotHandled()?.let {
+            makeSnackbar(it)
+        }
+    }
+
+    private fun makeSnackbar(contentResId: Int) {
+        Snackbar.make(view!!, contentResId, Snackbar.LENGTH_SHORT)
+            .show()
     }
 
     fun getDefaultTag(): String {

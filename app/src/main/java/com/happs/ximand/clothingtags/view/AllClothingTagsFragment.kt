@@ -2,17 +2,17 @@ package com.happs.ximand.clothingtags.view
 
 import android.os.Bundle
 import android.view.ContextMenu
-import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.happs.ximand.clothingtags.R
 import com.happs.ximand.clothingtags.databinding.FragmentAllClothingTagsBinding
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
 import com.happs.ximand.clothingtags.view.adapter.AllClothingRecyclerViewAdapter
 import com.happs.ximand.clothingtags.view.customview.ContextMenuRecyclerView
-import com.happs.ximand.clothingtags.view.customview.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import com.happs.ximand.clothingtags.viewmodel.AllClothingTagsViewModel
+import com.happs.ximand.clothingtags.viewmodel.`object`.ConfirmationDialog
 
 
 class AllClothingTagsFragment : BaseFragment<AllClothingTagsViewModel,
@@ -37,14 +37,47 @@ class AllClothingTagsFragment : BaseFragment<AllClothingTagsViewModel,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         allClothingRecyclerView?.layoutManager = LinearLayoutManager(context)
-        registerForContextMenu(allClothingRecyclerView!!)
     }
 
     override fun onPreViewModelAttached(viewModel: AllClothingTagsViewModel) {
         viewModel.clothingTagsLiveData.observe(viewLifecycleOwner, Observer { initAdapter(it) })
+        viewModel.removeConfirmation.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { dialogData ->
+                makeAlertDialog(dialogData)
+            }
+        })
+    }
+
+    private fun makeAlertDialog(dialogData: ConfirmationDialog) {
+        MaterialAlertDialogBuilder(context!!)
+            .setTitle(dialogData.titleId)
+            .setMessage(dialogData.messageId)
+            .setPositiveButton(dialogData.positiveButtonId) { dialog, _ ->
+                viewModel?.notifyRemovingConfirmed()
+                dialog.dismiss()
+            }
+            .setNegativeButton(dialogData.negativeButtonId) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    override fun onExternalEvent(eventId: Int) {
+        if (eventId == EVENT_UPDATE_LIST) {
+            viewModel?.updateTagsList()
+        }
     }
 
     private fun initAdapter(clothingTags: List<ClothingTag>) {
+        if (allClothingRecyclerView?.adapter == null) {
+            allClothingRecyclerView?.adapter = createNewAdapter(clothingTags)
+        } else {
+            (allClothingRecyclerView?.adapter as AllClothingRecyclerViewAdapter)
+                .notifyListUpdated(clothingTags)
+        }
+    }
+
+    private fun createNewAdapter(clothingTags: List<ClothingTag>): AllClothingRecyclerViewAdapter {
         val adapter =
             AllClothingRecyclerViewAdapter(
                 clothingTags
@@ -55,7 +88,7 @@ class AllClothingTagsFragment : BaseFragment<AllClothingTagsViewModel,
         adapter.removeClickListener = { tag ->
             viewModel?.removeTag(tag)
         }
-        allClothingRecyclerView?.adapter = adapter
+        return adapter
     }
 
     override fun onCreateContextMenu(
@@ -66,15 +99,4 @@ class AllClothingTagsFragment : BaseFragment<AllClothingTagsViewModel,
         inflater.inflate(R.menu.menu_item, menu)
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as RecyclerViewContextMenuInfo
-        // handle menu item here
-        return false
-    }
-
-    override fun onExternalEvent(eventId: Int) {
-        if (eventId == EVENT_UPDATE_LIST) {
-            viewModel?.updateTagsList()
-        }
-    }
 }
