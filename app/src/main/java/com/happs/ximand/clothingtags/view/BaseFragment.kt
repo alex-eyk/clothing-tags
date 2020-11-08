@@ -45,7 +45,7 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         super.setHasOptionsMenu(true)
         viewModel = ViewModelProvider(
             this, SavedStateViewModelFactory(activity?.application!!, this)
-        ).get(getViewModelGenericClass())
+        ).get(getViewModelGenericClass(0))
     }
 
     override fun onCreateView(
@@ -106,8 +106,8 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun getViewModelGenericClass(): Class<VM> {
+    protected fun <T> getViewModelGenericClass(argPosition: Int): Class<T> {
         return (javaClass.genericSuperclass as ParameterizedType)
-            .actualTypeArguments[0] as Class<VM>
+            .actualTypeArguments[argPosition] as Class<T>
     }
 }

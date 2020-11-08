@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.happs.ximand.clothingtags.viewmodel.AddTagFirstStepViewModel" />
+            type="com.happs.ximand.clothingtags.viewmodel.BaseEditTagViewModel" />
 
         <variable
             name="sharedViewModel"
-            type="com.happs.ximand.clothingtags.viewmodel.AddTagSharedViewModel" />
+            type="com.happs.ximand.clothingtags.viewmodel.BaseEditTagSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
