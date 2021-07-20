@@ -1,4 +1,4 @@
-package com.happs.ximand.clothingtags.model
+package com.happs.ximand.clothingtags.model.dao
 
 import android.app.Application
 import android.graphics.Bitmap

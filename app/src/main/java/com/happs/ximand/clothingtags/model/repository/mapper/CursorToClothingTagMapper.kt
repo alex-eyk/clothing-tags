@@ -1,7 +1,8 @@
-package com.happs.ximand.clothingtags.model
+package com.happs.ximand.clothingtags.model.repository.mapper
 
 import android.database.Cursor
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
+import com.happs.ximand.clothingtags.model.db.ClothingTagSQLiteHelper
 
 class CursorToClothingTagMapper : Mapper<Cursor, ClothingTag> {
 

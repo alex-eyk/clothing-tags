@@ -7,21 +7,17 @@ import com.happs.ximand.clothingtags.R
 abstract class BaseEditTagViewModel(savedState: SavedStateHandle, private val numOfStep: Int) :
     BaseViewModel(savedState) {
 
-    override fun notifyOptionsMenuItemClicked(id: Int): Boolean {
-        return when (id) {
+    override fun onOptionsMenuItemClicked(id: Int) {
+        when (id) {
             R.id.menu_cancel -> {
                 FragmentNavigation.getInstance().navigateToFewFragmentsBack(numOfStep)
-                true
             }
             R.id.menu_back -> {
                 FragmentNavigation.getInstance().navigateToPreviousFragment()
-                true
             }
             R.id.menu_next -> {
                 navigateToNextFragment()
-                true
             }
-            else -> false
         }
     }
 

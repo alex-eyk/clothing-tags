@@ -1,7 +1,6 @@
 package com.happs.ximand.clothingtags.viewmodel.util
 
 import com.happs.ximand.clothingtags.R
-import java.lang.IllegalArgumentException
 
 object DryingDescriptionHelper {
     private val idDescriptionResIdMap: Map<Int, Int> =

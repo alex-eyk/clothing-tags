@@ -11,6 +11,11 @@ abstract class BaseViewModel(protected val savedState: SavedStateHandle) :
 
     val makeSnackbarEvent = MutableLiveData<Event<Int>>()
 
+    open fun onOptionsMenuItemClicked(id: Int) {
+
+    }
+
+    @Deprecated("")
     open fun notifyOptionsMenuItemClicked(id: Int): Boolean {
         return false
     }

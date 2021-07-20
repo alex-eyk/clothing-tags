@@ -1,4 +1,4 @@
-package com.happs.ximand.clothingtags.model
+package com.happs.ximand.clothingtags.model.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

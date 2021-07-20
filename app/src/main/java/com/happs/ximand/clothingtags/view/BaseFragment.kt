@@ -15,29 +15,37 @@ import com.happs.ximand.clothingtags.viewmodel.BaseViewModel
 import com.happs.ximand.clothingtags.viewmodel.Event
 import java.lang.reflect.ParameterizedType
 
+/**
+ * Абстрактный класс, описывающий базовый фрагмент
+ * Каждый фрагмент приложения имеет свою модель представления и сгенерированный DataBinding объект
+ * Для возможности повторного использования кода создание модели представления и DataBinding объекта
+ * вынесено в этот базовый класс.
+ *
+ * Обязательное условие: XML-файл, описывающий фрагмент, обязательно должен содержать переменную
+ * того же типа, что и дженерик VM, а так же называющуюся 'viewModel'.
+ *
+ * Стоит помнить: модель представления создается в методе onCreate, объект DataBinding в методе
+ * onCreateView. При попытке получить эти объекты раньше будет брошено IllegalStateException.
+ *
+ * @param <VM> Модель представления фрагмента
+ * @param <B>  Data binding класс фрагмента
+ *
+ * @param layoutRes id XML файла, описывающего фрагметн (т.е. R.layout.fragment_...)
+ * @param menuRes id XML файла, описывающего меню Action bar`а (т.е. R.menu.menu_...)
+ */
 abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
-    private val layoutResId: Int, private val menuResId: Int
+    private val layoutRes: Int, private val menuRes: Int
 ) : Fragment() {
 
-    protected var viewModel: VM? = null
-        get() {
-            if (field != null) {
-                return field
-            } else {
-                throw IllegalStateException(
-                    "ViewModel was not initialized. It will " +
-                            "initialize after onCreate method"
-                )
-            }
-        }
-        private set
+    protected lateinit var viewModel: VM
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(menuResId, menu)
+        inflater.inflate(menuRes, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return viewModel?.notifyOptionsMenuItemClicked(item.itemId) ?: false
+        viewModel.onOptionsMenuItemClicked(id)
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,52 +53,58 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         super.setHasOptionsMenu(true)
         viewModel = ViewModelProvider(
             this, SavedStateViewModelFactory(activity?.application!!, this)
-        ).get(getViewModelGenericClass(0))
+        ).get(getGenericForPosition(0))
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<B>(inflater, layoutResId, container, false)
+        val binding = DataBindingUtil.inflate<B>(inflater, layoutRes, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         onViewDataBindingCreated(binding)
         observeMakeSnackbarEvent()
 
-        onPreViewModelAttached(viewModel!!)
+        onPreViewModelAttached(viewModel)
         binding.setVariable(BR.viewModel, viewModel)
         binding.executePendingBindings()
         return binding.root
     }
 
     private fun observeMakeSnackbarEvent() {
-        viewModel?.makeSnackbarEvent?.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.makeSnackbarEvent.observe(viewLifecycleOwner, Observer { event ->
             makeSnackbarOnEvent(event)
         })
     }
 
     protected fun makeSnackbarOnEvent(event: Event<Int>) {
         event.getContentIfNotHandled()?.let {
-            makeSnackbar(it)
+            Snackbar.make(view!!, it, Snackbar.LENGTH_SHORT)
+                .show()
         }
     }
 
-    private fun makeSnackbar(contentResId: Int) {
-        Snackbar.make(view!!, contentResId, Snackbar.LENGTH_SHORT)
-            .show()
-    }
-
-    fun getDefaultTag(): String {
-        return javaClass.simpleName
-    }
-
-    protected open fun onPreViewModelAttached(viewModel: VM) {
-
-    }
-
+    /**
+     * Вызвается после создания объекта DataBinding. Этот метод следует переопределить в
+     * наследующихся классах, если это необходимо.
+     * При этом модель представления уже создана и может быть получена вызовом метода getViewModel().
+     */
     protected open fun onViewDataBindingCreated(binding: B) {
 
     }
 
+    /**
+     * Вызывается после создания модели представления и объекта DataBinding, но перед тем, как
+     * модель будет прикреплена к объекту DataBinding. Этот метод следует переопределить в
+     * наследующихся классах, если это необходимо.
+     */
+    protected open fun onPreViewModelAttached(viewModel: VM) {
+
+    }
+
+    /**
+     * Вызывается, если произошло событие в другом фрагменте, которое требует изменить состояние
+     * текущего фрагмента.
+     */
     open fun onExternalEvent(eventId: Int) {
 
     }
@@ -100,14 +114,9 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(
         actionBar?.setTitle(resId)
     }
 
-    protected fun setActionBar(string: String) {
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.title = string
-    }
-
     @Suppress("UNCHECKED_CAST")
-    protected fun <T> getViewModelGenericClass(argPosition: Int): Class<T> {
+    protected fun <T> getGenericForPosition(position: Int): Class<T> {
         return (javaClass.genericSuperclass as ParameterizedType)
-            .actualTypeArguments[argPosition] as Class<T>
+            .actualTypeArguments[position] as Class<T>
     }
 }

@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.happs.ximand.clothingtags.FragmentNavigation
 import com.happs.ximand.clothingtags.R
-import com.happs.ximand.clothingtags.model.ClothingTagRepository
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
+import com.happs.ximand.clothingtags.model.repository.ClothingTagRepository
 import com.happs.ximand.clothingtags.view.tagadd.AddTagFirstStepFragment
 import com.happs.ximand.clothingtags.view.tagedit.EditTagFirstStepFragment
 import com.happs.ximand.clothingtags.viewmodel.`object`.RemoveConfirmationDialog
@@ -37,12 +37,11 @@ class AllClothingTagsViewModel(savedState: SavedStateHandle) : BaseViewModel(sav
             .navigateToNewFragment(EditTagFirstStepFragment.newInstance(tag))
     }
 
-    override fun notifyOptionsMenuItemClicked(id: Int): Boolean {
+    override fun onOptionsMenuItemClicked(id: Int) {
         if (id == R.id.menu_add) {
             FragmentNavigation.getInstance()
                 .navigateToNewFragment(AddTagFirstStepFragment.newInstance())
-            return true
         }
-        return false
     }
+
 }

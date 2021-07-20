@@ -1,4 +1,4 @@
-package com.happs.ximand.clothingtags.model
+package com.happs.ximand.clothingtags.model.repository
 
 interface Repository<T> {
     fun add(item: T)

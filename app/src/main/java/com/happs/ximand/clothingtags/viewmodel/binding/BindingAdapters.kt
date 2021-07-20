@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.happs.ximand.clothingtags.R
-import com.happs.ximand.clothingtags.model.ImagesDaoImpl
+import com.happs.ximand.clothingtags.model.dao.ImagesDaoImpl
 import com.happs.ximand.clothingtags.viewmodel.util.AnimationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

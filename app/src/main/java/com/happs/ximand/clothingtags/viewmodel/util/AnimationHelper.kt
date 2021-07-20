@@ -5,7 +5,7 @@ import android.view.View
 
 object AnimationHelper {
 
-    const val DURATION = 300L;
+    const val DURATION = 300L
 
     fun appearanceAnimation(view: View) {
         alphaAnimation(view, 0f, 1f)

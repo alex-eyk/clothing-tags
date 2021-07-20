@@ -1,6 +1,5 @@
 package com.happs.ximand.clothingtags.view.tagedit
 
-import android.view.MenuItem
 import com.happs.ximand.clothingtags.R
 import com.happs.ximand.clothingtags.databinding.FragmentAddThirdStepBinding
 import com.happs.ximand.clothingtags.view.BaseEditTagFragment
@@ -20,12 +19,4 @@ class EditTagThirdFragment :
         }
     }
 
-    //TODO: Повторяющийся код
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (super.onOptionsItemSelected(item)) {
-            true
-        } else {
-            sharedViewModel!!.notifyOptionsMenuItemClicked(item.itemId)
-        }
-    }
 }

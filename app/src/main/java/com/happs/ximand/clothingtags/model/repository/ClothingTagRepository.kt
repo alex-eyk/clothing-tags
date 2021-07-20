@@ -1,10 +1,14 @@
-package com.happs.ximand.clothingtags.model
+package com.happs.ximand.clothingtags.model.repository
 
 import android.app.Application
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteOpenHelper
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
+import com.happs.ximand.clothingtags.model.db.ClothingTagSQLiteHelper
+import com.happs.ximand.clothingtags.model.repository.mapper.ClothingTagToContentValuesMapper
+import com.happs.ximand.clothingtags.model.repository.mapper.CursorToClothingTagMapper
+import com.happs.ximand.clothingtags.model.repository.mapper.Mapper
 import java.util.*
 import kotlin.collections.ArrayList
 

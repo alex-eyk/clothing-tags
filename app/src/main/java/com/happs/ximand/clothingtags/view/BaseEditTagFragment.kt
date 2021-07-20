@@ -3,7 +3,6 @@ package com.happs.ximand.clothingtags.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateViewModelFactory
@@ -28,7 +27,7 @@ abstract class BaseEditTagFragment<VM : BaseViewModel, SVM : BaseEditTagSharedVi
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(
             activity!!.viewModelStore, SavedStateViewModelFactory(activity!!.application!!, this)
-        ).get(getViewModelGenericClass(1))
+        ).get(getGenericForPosition(1))
     }
 
     override fun onViewDataBindingCreated(binding: D) {
@@ -58,11 +57,4 @@ abstract class BaseEditTagFragment<VM : BaseViewModel, SVM : BaseEditTagSharedVi
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (super.onOptionsItemSelected(item)) {
-            true
-        } else {
-            sharedViewModel!!.notifyOptionsMenuItemClicked(item.itemId)
-        }
-    }
 }

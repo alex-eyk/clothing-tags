@@ -8,12 +8,18 @@ import androidx.lifecycle.SavedStateHandle
 import com.happs.ximand.clothingtags.FragmentNavigation
 import com.happs.ximand.clothingtags.R
 import com.happs.ximand.clothingtags.SingleLiveEvent
-import com.happs.ximand.clothingtags.model.ImagesDaoImpl
 import com.happs.ximand.clothingtags.model.`object`.ClothingTag
+import com.happs.ximand.clothingtags.model.`object`.exception.AllFieldsEmptyException
+import com.happs.ximand.clothingtags.model.`object`.exception.EmptyTitleException
+import com.happs.ximand.clothingtags.model.dao.ImagesDaoImpl
 import com.happs.ximand.clothingtags.view.AllClothingTagsFragment
 
 abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     BaseViewModel(savedState) {
+
+    companion object {
+        const val IMAGE_NONE = -1
+    }
 
     protected var clothingTag = ClothingTag()
     val selectImageEvent = SingleLiveEvent<Void>()
@@ -30,11 +36,16 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     val dryingType = MutableLiveData(-1)
     val canNotBeTwisted = MutableLiveData<Boolean>(false)
 
-    private var notEmptyFieldsCounter = 0
-    var attachedImageId = -1
+    var attachedImageId = IMAGE_NONE
 
     open fun setEditingTag(tag: ClothingTag) {
+        clothingTag = tag
+    }
 
+    override fun onOptionsMenuItemClicked(id: Int) {
+        if (id == R.id.menu_save_tag) {
+            addTag()
+        }
     }
 
     fun selectImage() {
@@ -63,45 +74,21 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
             imageLiveData.value = null
             makeSnackbarEvent.value = Event(R.string.image_was_deleted)
         }
-        attachedImageId = -1
-    }
-
-    override fun notifyOptionsMenuItemClicked(id: Int): Boolean {
-        if (id == R.id.menu_save_tag) {
-            addTag()
-            return true
-        }
-        return false
+        attachedImageId = IMAGE_NONE
     }
 
     private fun addTag() {
-        if (validateTitle()) {
+        try {
             saveImageIfAttached()
             initClothingTag()
-            if (validateNotEmptyFieldsNum()) {
-                doSaveAction()
-                navigateBackToAllTagsFragment()
-                notifyAllTagsFragmentAboutNewTag()
-            }
-        }
-    }
-
-    protected abstract fun doSaveAction()
-
-    private fun validateTitle(): Boolean {
-        if (title.value.isNullOrEmpty()) {
-            makeSnackbarEvent.value = Event(R.string.title_is_empty)
-            return false
-        }
-        return true
-    }
-
-    private fun validateNotEmptyFieldsNum(): Boolean {
-        if (notEmptyFieldsCounter == 0) {
+            doSaveAction()
+            navigateBackToAllTagsFragment()
+            notifyAllTagsFragmentAboutNewTag()
+        } catch (e: AllFieldsEmptyException) {
             makeSnackbarEvent.value = Event(R.string.invalid_num_of_not_empty_fields)
-            return false
+        } catch (e: EmptyTitleException) {
+            makeSnackbarEvent.value = Event(R.string.title_is_empty)
         }
-        return true
     }
 
     private fun saveImageIfAttached() {
@@ -114,19 +101,25 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     }
 
     private fun initClothingTag() {
-        initTitle()
-        initDescription()
-        initImageId()
-        initWashingType()
-        initWashingMaximumTemp()
-        initWhiteningType()
-        initIroningType()
-        initDryCleaningType()
-        initSpinningType()
-        initDryingType()
-        initCanNotBeTwisted()
-        validateNotEmptyFieldsNum()
+        if (title.value.isNullOrBlank()) {
+            throw EmptyTitleException()
+        }
+        clothingTag = ClothingTag.Builder()
+            .setTitle(title.value!!)
+            .setDescription(description.value)
+            .setImageId(attachedImageId)
+            .setWashingType(washingType.value!!)
+            .setWashingMaximumTemp(washingMaximumTemp.value!!)
+            .setWhiteningType(whiteningType.value!!)
+            .setIroningType(ironingType.value!!)
+            .setDryCleaningType(dryCleaningType.value!!)
+            .setSpinningType(spinningType.value!!)
+            .setDryingType(dryingType.value!!)
+            .setCanNotBeTwisted(canNotBeTwisted.value!!)
+            .build()
     }
+
+    protected abstract fun doSaveAction()
 
     private fun navigateBackToAllTagsFragment() {
         FragmentNavigation.getInstance().navigateToFewFragmentsBack(3)
@@ -137,74 +130,6 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
         FragmentNavigation.getInstance().notifyFragmentAboutExternalEvent(
             tag, AllClothingTagsFragment.EVENT_UPDATE_LIST
         )
-    }
-
-    private fun initTitle() {
-        clothingTag.title = title.value!!
-    }
-
-    private fun initDescription() {
-        clothingTag.description = description.value
-    }
-
-    private fun initImageId() {
-        clothingTag.imageId = attachedImageId
-    }
-
-    private fun initWashingType() {
-        clothingTag.washingType = washingType.value!!
-        if (washingType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initWashingMaximumTemp() {
-        clothingTag.washingMaximumTemp = washingMaximumTemp.value!!
-        if (washingMaximumTemp.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initWhiteningType() {
-        clothingTag.whiteningType = whiteningType.value!!
-        if (whiteningType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initIroningType() {
-        clothingTag.ironingType = ironingType.value!!
-        if (ironingType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initDryCleaningType() {
-        clothingTag.dryCleaningType = dryCleaningType.value!!
-        if (dryCleaningType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initSpinningType() {
-        clothingTag.spinningType = spinningType.value!!
-        if (spinningType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initDryingType() {
-        clothingTag.dryingType = dryingType.value!!
-        if (dryingType.value != -1) {
-            notEmptyFieldsCounter++
-        }
-    }
-
-    private fun initCanNotBeTwisted() {
-        clothingTag.canBeTwisted = !canNotBeTwisted.value!!
-        if (canNotBeTwisted.value != false) {
-            notEmptyFieldsCounter++
-        }
     }
 
 }
