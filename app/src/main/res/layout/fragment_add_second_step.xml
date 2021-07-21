@@ -128,7 +128,6 @@
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView4" />
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -160,7 +159,6 @@
         </HorizontalScrollView>
 
         <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
-            android:id="@+id/textViewWithTopStartDrawable5"
             style="@style/AppChipGroupTextCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -18,7 +18,7 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     BaseViewModel(savedState) {
 
     companion object {
-        const val IMAGE_NONE = -1
+        val TAG = BaseEditTagSharedViewModel::class.simpleName
     }
 
     protected var clothingTag = ClothingTag()
@@ -36,10 +36,10 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     val dryingType = MutableLiveData(-1)
     val canNotBeTwisted = MutableLiveData<Boolean>(false)
 
-    var attachedImageId = IMAGE_NONE
+    var attachedImageId = ImagesDaoImpl.IMAGE_NONE_ID
 
     open fun setEditingTag(tag: ClothingTag) {
-        clothingTag = tag
+
     }
 
     override fun onOptionsMenuItemClicked(id: Int) {
@@ -55,17 +55,15 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     fun notifyImageSelected(uri: Uri?, selected: Boolean) {
         if (uri != null) {
             runCoroutine(imageLiveData) {
-                val bitmap = ImagesDaoImpl.instance!!.getImageByUri(uri)
+                val bitmap = ImagesDaoImpl.instance.getImageByUri(uri)
                 makeSnackbarEvent.value = Event(R.string.image_was_selected)
                 return@runCoroutine bitmap
             }
         } else if (!selected) {
             makeSnackbarEvent.value = Event(R.string.image_was_not_selected)
         } else {
-            Log.e(
-                javaClass.simpleName, "Image was selected, but uri is null",
-                NullPointerException()
-            )
+            makeSnackbarEvent.value = Event(R.string.image_loading_error)
+            Log.e(TAG, "Image was selected, but uri is null")
         }
     }
 
@@ -74,7 +72,7 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
             imageLiveData.value = null
             makeSnackbarEvent.value = Event(R.string.image_was_deleted)
         }
-        attachedImageId = IMAGE_NONE
+        attachedImageId = ImagesDaoImpl.IMAGE_NONE_ID
     }
 
     private fun addTag() {
@@ -93,7 +91,7 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
 
     private fun saveImageIfAttached() {
         if (imageLiveData.value != null) {
-            attachedImageId = ImagesDaoImpl.instance?.savePhoto(imageLiveData.value!!)!!
+            attachedImageId = ImagesDaoImpl.instance.savePhoto(imageLiveData.value!!)
             if (attachedImageId == 0) {
                 makeSnackbarEvent.value = Event(R.string.error_save_image)
             }
@@ -126,9 +124,9 @@ abstract class BaseEditTagSharedViewModel(savedState: SavedStateHandle) :
     }
 
     private fun notifyAllTagsFragmentAboutNewTag() {
-        val tag = AllClothingTagsFragment::class.simpleName!!
+        val fragmentTag = AllClothingTagsFragment::class.simpleName!!
         FragmentNavigation.getInstance().notifyFragmentAboutExternalEvent(
-            tag, AllClothingTagsFragment.EVENT_UPDATE_LIST
+            fragmentTag, AllClothingTagsFragment.EVENT_UPDATE_LIST
         )
     }
 

@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             ) {
             } else {
                 Snackbar.make(
-                    findViewById(R.id.container),
+                    findViewById(R.id.main_container),
                     "Нет разрешения на доступ к памяти. Из-за этого вы не сможете загружать изображения одежды. Измените это в настройках",
                     Snackbar.LENGTH_SHORT
                 )

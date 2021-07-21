@@ -10,12 +10,12 @@
     <string name="wash_delicate_type">Особо деликатная стирка</string>
     <string name="wash_hand_type">Ручная стирка</string>
     <string name="wash_banned_type">Не стирать</string>
-    <string name="temperature_pattern">%f℃</string>
-    <string name="_30">30℃</string>
-    <string name="_45">45℃</string>
-    <string name="_60">60℃</string>
-    <string name="_75">75℃</string>
-    <string name="_90">90℃</string>
+    <string name="temperature_pattern" translatable="false">%f℃</string>
+    <string name="_30" translatable="false">30℃</string>
+    <string name="_45" translatable="false">45℃</string>
+    <string name="_60" translatable="false">60℃</string>
+    <string name="_75" translatable="false">75℃</string>
+    <string name="_90" translatable="false">90℃</string>
     <string name="whitening_any_type">Любое отбеливание</string>
     <string name="whitening_without_cl_type">Любое отбеливание кроме хлора</string>
     <string name="whitening_banned_type">Не отбеливать</string>
@@ -67,6 +67,7 @@
     <string name="edit">Редактировать</string>
     <string name="show_details">Показать детали</string>
     <string name="image_was_not_selected">Изображение не выбрано</string>
+    <string name="image_loading_error">Ошибка при загрузке изображения</string>
     <string name="image_was_selected">Изображение успешно выбрано</string>
     <string name="image_was_deleted">Прикрепленное изображение удалено</string>
     <string name="title_is_empty">Название обязательно должно быть заполнено</string>
@@ -75,4 +76,5 @@
     <string name="removing_tag_confirmation">Вы действительно хотите удалить данные о стирке?</string>
     <string name="invalid_num_of_not_empty_fields">По крайней мере 1 пункт должен быть заполнен</string>
     <string name="error_save_image">Не удалось сохранить прикрепленное изображение</string>
+    <string name="no_one_clothing_tag_added">Ни одна бирка еще не была добавлена</string>
 </resources>

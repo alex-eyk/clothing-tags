@@ -15,11 +15,6 @@ abstract class BaseViewModel(protected val savedState: SavedStateHandle) :
 
     }
 
-    @Deprecated("")
-    open fun notifyOptionsMenuItemClicked(id: Int): Boolean {
-        return false
-    }
-
     protected fun <T> runCoroutine(liveData: MutableLiveData<T>, block: () -> T) {
         viewModelScope.launch {
             val result = block()

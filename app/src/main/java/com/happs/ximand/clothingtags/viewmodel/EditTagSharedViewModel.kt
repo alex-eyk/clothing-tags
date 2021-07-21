@@ -21,7 +21,7 @@ class EditTagSharedViewModel(savedState: SavedStateHandle) :
         dryingType.value = clothingTag.dryingType
         canNotBeTwisted.value = !clothingTag.canBeTwisted
         attachedImageId = clothingTag.imageId!!
-        if (attachedImageId != -1) {
+        if (attachedImageId != ImagesDaoImpl.IMAGE_NONE_ID) {
             updatePhoto()
         }
     }
@@ -32,7 +32,7 @@ class EditTagSharedViewModel(savedState: SavedStateHandle) :
 
     private fun updatePhoto() {
         runCoroutine(imageLiveData) {
-            ImagesDaoImpl.instance?.loadImageById(attachedImageId)
+            ImagesDaoImpl.instance.loadImageById(attachedImageId)
         }
     }
 }

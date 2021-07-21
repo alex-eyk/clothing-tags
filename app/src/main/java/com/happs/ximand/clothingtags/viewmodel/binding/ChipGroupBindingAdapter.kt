@@ -6,7 +6,13 @@ import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseBindingMethods
 import com.google.android.material.chip.ChipGroup
 
-@InverseBindingMethods(InverseBindingMethod(type = ChipGroup::class, attribute = "android:checkedButton", method = "getCheckedChipId"))
+@InverseBindingMethods(
+    InverseBindingMethod(
+        type = ChipGroup::class,
+        attribute = "android:checkedButton",
+        method = "getCheckedChipId"
+    )
+)
 class ChipGroupBindingAdapter {
 
     companion object {
@@ -19,9 +25,14 @@ class ChipGroupBindingAdapter {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["android:onCheckedChanged", "android:checkedButtonAttrChanged"], requireAll = false)
-        fun setChipsListeners(view: ChipGroup?, listener: ChipGroup.OnCheckedChangeListener?,
-                              attrChange: InverseBindingListener?) {
+        @BindingAdapter(
+            value = ["android:onCheckedChanged", "android:checkedButtonAttrChanged"],
+            requireAll = false
+        )
+        fun setChipsListeners(
+            view: ChipGroup?, listener: ChipGroup.OnCheckedChangeListener?,
+            attrChange: InverseBindingListener?
+        ) {
             if (attrChange == null) {
                 view?.setOnCheckedChangeListener(listener)
             } else {

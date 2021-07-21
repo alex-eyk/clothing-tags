@@ -6,7 +6,7 @@ import com.happs.ximand.clothingtags.R
 
 object FragmentTransactionsHelper {
 
-    private const val MAIN_CONTAINER: Int = R.id.container
+    private const val MAIN_CONTAINER: Int = R.id.main_container
 
     private const val ANIM_IN: Int = R.animator.fade_in
     private const val ANIM_OUT: Int = R.animator.fade_out

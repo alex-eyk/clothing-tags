@@ -19,7 +19,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_name"
+            android:id="@+id/name_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_small_description"
+            android:id="@+id/small_description_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:hint="@string/small_description"
             app:helperText="@string/not_necessary"
             app:helperTextEnabled="true"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_name">
+            app:layout_constraintTop_toBottomOf="@id/name_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/photo_view"
+            android:id="@+id/attached_image_view"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="@dimen/default_start_margin"
@@ -69,31 +69,31 @@
             android:src="@drawable/image_placeholder"
             app:layout_constraintStart_toStartOf="parent"
             app:bitmap="@{sharedViewModel.imageLiveData}"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_small_description"
+            app:layout_constraintTop_toBottomOf="@id/small_description_input_layout"
             app:setClipToOutline="@{true}" />
 
         <TextView
-            android:id="@+id/add_photo_title"
+            android:id="@+id/add_photo_title_text_view"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:text="@string/add_photo"
-            app:layout_constraintStart_toEndOf="@+id/photo_view"
-            app:layout_constraintTop_toTopOf="@+id/photo_view" />
+            app:layout_constraintStart_toEndOf="@+id/attached_image_view"
+            app:layout_constraintTop_toTopOf="@+id/attached_image_view" />
 
         <TextView
-            android:id="@+id/add_photo_description"
+            android:id="@+id/add_photo_description_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="@string/not_necessary"
-            app:layout_constraintStart_toStartOf="@+id/add_photo_title"
-            app:layout_constraintTop_toBottomOf="@+id/add_photo_title" />
+            app:layout_constraintStart_toStartOf="@+id/add_photo_title_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/add_photo_title_text_view" />
 
         <ImageButton
-            android:id="@+id/add_photo_button"
+            android:id="@+id/add_image_button"
             style="@style/AppImageButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -101,50 +101,50 @@
             android:onClick="@{() -> sharedViewModel.selectImage()}"
             android:src="@drawable/ic_baseline_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cancel_attach_button"
+            app:layout_constraintTop_toTopOf="@+id/cancel_attach_image_button"
             tools:ignore="ContentDescription" />
 
         <ImageButton
-            android:id="@+id/cancel_attach_button"
+            android:id="@+id/cancel_attach_image_button"
             style="@style/AppImageButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
             android:onClick="@{() -> sharedViewModel.cancelAttaching()}"
             android:src="@drawable/ic_baseline_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/photo_view"
-            app:layout_constraintEnd_toStartOf="@+id/add_photo_button"
-            app:layout_constraintTop_toTopOf="@+id/photo_view"
+            app:layout_constraintBottom_toBottomOf="@+id/attached_image_view"
+            app:layout_constraintEnd_toStartOf="@+id/add_image_button"
+            app:layout_constraintTop_toTopOf="@+id/attached_image_view"
             tools:ignore="ContentDescription" />
 
         <View
-            android:id="@+id/divider"
+            android:id="@+id/divider_1"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="@dimen/default_end_margin"
             android:background="@color/colorDividerBackground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/add_photo_description"
-            app:layout_constraintTop_toBottomOf="@+id/photo_view" />
+            app:layout_constraintStart_toStartOf="@+id/add_photo_description_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/attached_image_view" />
 
         <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
-            android:id="@+id/textView"
+            android:id="@+id/important_to_fill_text_view"
             style="@style/AppChipGroupTextCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/not_necessary_to_input_all"
             app:drawableStartCompat="@drawable/ic_baseline_warning"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_1" />
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
+            android:id="@+id/wash_type_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/important_to_fill_text_view">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -202,21 +202,21 @@
         </HorizontalScrollView>
 
         <com.happs.ximand.clothingtags.view.customview.TextViewWithTopStartDrawable
-            android:id="@+id/textViewWithTopStartDrawable"
+            android:id="@+id/wash_type_description_text_view"
             style="@style/AppChipGroupTextCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/washing_caption"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/wash_type_scroll_view" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_"
+            android:id="@+id/temperature_chip_group"
             style="@style/AppChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:checkedButton="@={sharedViewModel.washingMaximumTemp}"
-            app:layout_constraintTop_toBottomOf="@+id/textViewWithTopStartDrawable"
+            app:layout_constraintTop_toBottomOf="@+id/wash_type_description_text_view"
             tools:layout_editor_absoluteX="0dp">
 
             <com.google.android.material.chip.Chip
@@ -261,7 +261,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/temperature_caption"
-            app:layout_constraintTop_toBottomOf="@+id/chip_group_" />
+            app:layout_constraintTop_toBottomOf="@+id/temperature_chip_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

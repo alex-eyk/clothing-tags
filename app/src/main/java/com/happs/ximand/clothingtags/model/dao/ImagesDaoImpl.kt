@@ -13,14 +13,8 @@ import java.util.*
 class ImagesDaoImpl private constructor(private val app: Application) : ImagesDAO {
 
     companion object {
-        var instance: ImagesDaoImpl? = null
-            get() {
-                if (field == null) {
-                    throw IllegalStateException()
-                }
-                return field
-            }
-            private set
+        const val IMAGE_NONE_ID = -1
+        lateinit var instance: ImagesDaoImpl
 
         fun initialize(app: Application) {
             instance = ImagesDaoImpl(app)

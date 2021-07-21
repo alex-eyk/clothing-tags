@@ -79,7 +79,7 @@ class BindingAdapters {
             } else {
                 val scope = CoroutineScope(Job() + Dispatchers.Main)
                 scope.launch {
-                    val bmp = ImagesDaoImpl.instance?.loadImageById(id)
+                    val bmp = ImagesDaoImpl.instance.loadImageById(id)
                     imageView.setImageBitmap(bmp)
                 }
             }

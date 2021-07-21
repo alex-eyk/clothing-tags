@@ -2,12 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.happs.ximand.clothingtags.viewmodel.AllClothingTagsViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,5 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_one_clothing_tag_added"
+            android:textSize="12sp"
+            android:visibility="@{viewModel.clothingTagsLiveData.size() == 0 ? View.VISIBLE : View.GONE}" />
+
+    </FrameLayout>
 </layout>
